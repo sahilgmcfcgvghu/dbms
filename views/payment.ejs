@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+</head>
+<body>
+<form id="paymentForm" action="/submit"  method="POST">
+    <table border="1">
+        <tr>
+            <th>Policy ID</th>
+            <td><%= policy.policy_id %></td>
+        </tr>
+        <tr>
+            <th>Policy Type</th>
+            <td><%= policy.policy_type %></td>
+        </tr>
+        <tr>
+            <th>Amount Left</th>
+            <td><%= amount_left %></td>
+        </tr>
+    </table>
+    <input type="text" id="policy_id" name="policyId" value="<%= policy.policy_id %>" hidden>
+    <input type="text" id="policy_id" name="amount_left" value="<%= amount_left %>" hidden>
+    <input type="text" id="customer_id" name="customer_id" value="<%= policy.customer_id %>" hidden>
+    <label for="premiumAmount">Select Premium Amount:</label>
+    <select id="premiumAmount" required name="amount">
+        <option value="<%= policy.premium_amount %>"><%= policy.premium_amount %></option>
+        <% if (amount_left >= (policy.premium_amount) * 2) { %>
+            <option value="<%= (policy.premium_amount) * 2 %>"><%= (policy.premium_amount) * 2 %></option>
+        <% } %>
+        <% if (amount_left >= (policy.premium_amount) * 3) { %>
+            <option value="<%= (policy.premium_amount) * 3 %>"><%= (policy.premium_amount) * 3 %></option>
+        <% } %>
+        <% if (amount_left >= (policy.premium_amount) * 6) { %>
+            <option value="<%= (policy.premium_amount) * 6 %>"><%= (policy.premium_amount) * 6 %></option>
+        <% } %>
+    </select>
+    <label for="">Enter PIN</label>
+    <input type="password" id="pin" name="pin">
+    
+    <button type="submit">Pay</button>
+</form>
+</body>
+</html>
